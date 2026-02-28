@@ -1,0 +1,36 @@
+Tema 1 POO (VoteSmart – Platformă de Votare Online)
+
+Consideram clasa "App" in care avem un switch care ne trimite pe fiecare ramura in functie de comanda selectata. Aici
+avem o lista de "Alegeri". Tratam cazurile in care alegerile nu exista, sau statusul lor(neincepute, in curs, terminate)
+si nu permite efectuarea comenzii daca nu trebuie.
+
+Consideram clasa "Persoane" care contine date de identificare(cnp, varsta, nume). Extindem aceasta clasa cu "Candidat"
+(adaugam campul nrVoturi) si "Votant" (adaugam campurile neindemanatic, votat - daca a votat sau nu, frauda - daca a
+fraudat sau nu).
+
+Consideram clasa "Alegeri" in care avem liste pentru "Circumscriptie", "Candidat", "Fraude". Aici adaugam candidatii la
+nivel national, ii adaugam pe toti, chiar daca nu obtin voturi. Putem adauga sau sterge circumscriptiile si candidatii
+doriti. Pentru a adauga un votant, trebuie sa coboram mai jos in ierarhie, la nivelul circumscriptie. Efectuam sistemul
+de votare, tratam cazurile de eroare. Atunci cand un candidat a comis deja o frauda, facem bypass direct la afisarea
+mesajului. Atunci cand un candidat incearca vot in alta circumscriptie, sau vot multiplu, trebuie sa anulam votul
+acestuia. Adaugam frauda atunci cand se comite (vot multiplu sau in alta circumscriptie). Atunci cand trebuie sa lucram
+la nivel de regiune, efectuam o concatenare a listelor de candidati dincircumscriptiile din regiune, si apoi eliminam
+duplicatele avand grija la numarul de voturi. Cream rapoartele de nivel national in functie de datele colectate.
+
+Consideram clasa "Circumscriptie". Aici vom folosi acelas sistem de candidati si voturi, doar ca aici avem o lista
+separata de candidati unde se iau in considerare numai voturile la nivel de circumscriptie. De asemenea, cream rapoarte
+de nivel local folosind datele colectate.
+
+Consideram clasa "Fraude", unde stocam date legate de cel care a comis frauda. Adica circumscriptia unde s-a comis
+frauda, numele si cnp-ul celui care a comis frauda. Daca un individ comite 2 fraude, il afisam o singura data.
+
+Ce alte cazuri limită ați mai trata în această aplicație?
+    - testele nu verifica daca cel care a comis deja o frauda mai poate vota, eu am considerat ca nu;
+    - putem considera ca votul are memorie, adica daca cineva a votat si apoi a fraudat, sa-i anulam si votul
+        efectuat regulamentar, adica sa decrementam din voturile candidatului;
+    - putem considera cazul in care inclusiv candidatii au drept de vot, acest aspect nu e acoperit de teste.
+
+Cum ați refactoriza comenzile și răspunsurile din aplicație?
+    - putem folosi un Singleton pentru a crea o singura instanta pentru comenzi;
+    - putem folosi metode generice pentru calcularea procentelor si afisarea mesajelor repetitive;
+    - putem returna mesajele, si acestea sa se afiseze doar in clasa App.

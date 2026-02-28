@@ -1,0 +1,42 @@
+Tema 2 POO
+
+Consideram clasa Main in care citim fisierul de input din care vom extrage linie cu linie comenzile pe care le vom
+    executa. Aici instantiam panoul de comanda drept un singleton deoarece avem nevoie de o singura instanta a acesteia.
+
+Consideram Airplane ce va contine detaliile unui avion (model, ID, locatie de plecare, destinatie, timpii programati de
+    plecare si timpii reali, daca este o urganta sau nu, si status-ul avionului). Cream un constructor cu parametrii,
+    care va avea status diferit. Daca avionul pleaca din Bucuresti, status-ul va fi "WAITING_FOR_TAKEOFF" si daca vine,
+    va fi "WAITING_FOR_LANDING". Celelalte 2 stari "DEPARTED" si "LANDED" pot fi setate doar daca se executa comanda de
+    manevra. Clasa aiplane extinde alte 2 clase "WideBodyAirplane" si "NarrowBodyAirplane" care nu au alti parametrii,
+    dar au metoda de afisare toString suprascrisa, specifica fiecarui tip.
+
+Consideram clasa Runway generica care va putea accesa doar un singur tip de avion (narrowBody/wideBody) si doar avione
+    intr-o singura directie (plecari/veniri). Clasa Runway are parametrii specifici (ID, type, status - FREE/OCCUPIED,
+    scheduledAirplanes - coada prioritara de avioane asociata pistei, availableAt - ora de la care pista poate fi din
+    nou folosita, managedAirplanes - lista de avioane care au trecut deja prin procedura de manevra, au status-ul
+    LANDED/DEPARTED si car enu trebuie sa mai astepte la coada, dar de care mai avem neoie pentru a putea afisa
+    detaliile specifice fiecarui avion). In metoda toString, trebuie sa sortam lista de avioane in functie de
+    comparatorul asociat pistei. Pentru o pista de aterizare, sortam mai intai urgentele, apoi in funtie de timp. Daca
+    sunt piste d edecolare, sortam in functie de timpul programat.
+
+Consideram clasa Commands, drept un tablou de comanda implementat cu Singleton deoarece avem nevoie de o singura
+    instanta a acesteia. In aceasta clasa executam comenzile:
+        - "add_runway_in_use" - cream o instanta de runway pe care o adaugam in lista de runways. Vom avea grija sa
+                                asociam corect comparatorul potrivit, dar si daca se accepta avioane wide sau narrow.
+        - "allocate_plane" - in functie de id-ul pistei, adaugam avionul in lista de avioane a pistei. Daca avem detalii
+                            contradictorii (tipuri diferite de avion si runway), aruncam o exceptie si nu adaugam nimic.
+                            Cream avion specific subclaselor Airplane, adica wide sau narrow.
+        - "permission_for_maneuver" - cautam runway-ul dat si vedem daca se poate executa manevra(verificam timpul de la
+                                        care avem voie sa executam manevre). Executam manevra si scoatem avionul din
+                                        coada de prioritati si o adaugam in lista de avioane prelucrate, a pistei.
+                                        Schimba status-ul avionului si status-ul pistei. O marcam OCCUPIED pana cand
+                                        verificam la celelalte comenzi timpii si marcam pista FREE cand avem nevoie.
+                                        Daca nu se poate executa manevra, aruncam o exceptie si nu facem nimic. De
+                                        asemenea, la aceasta comanda, marcam timpii reali la care s-au executat
+                                        manevrele.
+        - "runway_info" - scriem detaliile despre pista folosind metoda toString din clasa Runway.
+        - "flight_info" - cautam avionul prin toate pistele, si daca il gasim, afisam detaliile acestuia folosind metoda
+                            toString din sublasele acestuia.
+        - "exit" - afisam in fisierele specifice, outputurile si exceptiile adunate pe parcursul rularii programului, si
+                    eliberam listele folosite.
+

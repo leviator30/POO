@@ -1,0 +1,25 @@
+Proiect final POO
+
+SINGLETON
+Consideram clasa Database care functioneaza ca o baza de date cu intstantiere unica, fapt ce a dus la implementarea
+acesteia folosind Singleton. In cadrul acestei clase, avem lista de muzee si grupuri. De asemenea, de aici realizam
+scrierea in fisiere a output-urilor intoarse din clasele ce implementeaza comenzile.
+
+BUILDER
+Consideram clasele Group, Museum si Person (impreuna cu clasele mostenite Professor si Student) care contin datele
+legate de fiecare din entitatile mentionate. Numarul mare de variabile al fiecarei clase ne indruma spre utilizarea
+pattern-ului Builder deoarece vrem sa avem o instantiere usoara din exterior. De asemenea, clasa Group contine si
+metodele de adaugare si stergere a unui ghid sau membru.
+
+FACTORY
+Clasele Professor si Student sunt mostenite din clasa Person. Atunci cand instantiem unul din obiectele mentionate mai
+devreme, pe noi nu ne intereseaza tipul obiectului, asa ca putem utiliza pattern-ul Factory pentru a crea obiectele
+Professor si Student. De asemenea, implementam metodele toString in clasele Person, Professor si Student pentru a avea
+acces usor la datele despre fiecare si a putea realiza comparatii intre entitati.
+
+COMMAND
+Noi dorim sa implementam mai multe tipuri de comenzi asupra obiectelor mentionate pana acum. Acest ucru il putem face
+folosind pattern-ul Command, care ofera o interfata de executare a comenilor. Avantajele sunt crearea claselor
+AddEventCommand, AddGuideCommand, etc. care implementeaza metodele dorite intr-un mod separat de restul codului.
+Atunci cand dorim sa adaugam o comanda noua, cream separat noua clasa si doar adaugam comanda in lista de comenzi in
+clasa CommandManager, fara sa modificam ceva in clasa Database, unde se apeleaza abstract metoda execute.
